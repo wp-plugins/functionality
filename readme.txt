@@ -3,7 +3,7 @@ Contributors: bungeshea
 Donate link: http://bungeshea.com/donate/
 Tags: functionality, functions.php
 Tested up to: 3.6
-Stable tag: 1.0.1
+Stable tag: 1.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -30,13 +30,14 @@ This plugin may be removed at any time, and your functionality plugin will remai
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.1 =
 * Fixed a spelling error when initializing the class
+* Only initialize the class on plugin activation
 
 = 1.0 =
 * Initial release
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Fixed a fatal error on plugin activation
+= 1.1 =
+Fixed all errors

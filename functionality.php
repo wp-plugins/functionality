@@ -6,14 +6,10 @@
  * Description: Makes it easy to create and edit your own functionality plugin for pasting snippets instead of in the theme's functions.php
  * Author: Shea Bunge
  * Author URI: http://bungeshea.com
- * Version: 1.0.1
+ * Version: 1.1
  * License: MIT
  * License URI: http://opensource.org/licenses/MIT
  */
-
-/* This plugin doesn't work if file editing is disabled */
-if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT || defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS )
-	return;
 
 /**
  * Makes it easy to create and edit your own functionality plugin
@@ -24,7 +20,7 @@ if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT || defined( 'DISALLOW
  * created by this plugin in your plugins folder. When I refer to
  * 'this plugin', I'm talking about, you guessed it, this plugin
  *
- * @version   1.0.1
+ * @version   1.1
  * @author    Shea Bunge <info@bungeshea.com>
  * @copyright Copyright (c) 2013, Shea Bunge
  * @license   http://opensource.org/licenses/MIT
@@ -60,8 +56,8 @@ class Functionality_Plugin {
 	 * @access public
 	 */
 	public function __construct( $plugin_filename, $plugin_location = WP_PLUGIN_DIR ) {
-		set_plugin_filename( $plugin_filename );
-		set_plugin_location( $plugin_location );
+		$this->set_plugin_filename( $plugin_filename );
+		$this->set_plugin_location( $plugin_location );
 	}
 
 	/**
@@ -217,21 +213,6 @@ class Functionality_Plugin {
 }
 
 /**
- * Create an instance of the class
- *
- * @return void
- * @uses   apply_filters() To allow changing of the filename without hacking
- * @since  1.0
- * @access public
- */
-function functionality_plugin_init() {
-	$filename = apply_filters( 'functionality_plugin_filename', 'functions.php' );
-	$GLOBALS['functionality_plugin_controller'] = new Functionality_Plugin( $filename );
-}
-
-add_action( 'plugins_loaded', 'functionality_plugin_init' );
-
-/**
  * Add a link to edit the functionality plugin
  * to the Plugins admin menu for easy access
  *
@@ -254,13 +235,21 @@ function functionality_plugin_admin_menu() {
 add_action( 'admin_menu', 'functionality_plugin_admin_menu' );
 
 /**
- * Create the functionality plugin when this plugin is activated
+ * Initialize the class and
+ * create the functionality plugin when this plugin is activated
  *
  * @return void
+ * @uses   apply_filters() To allow changing of the filename without hacking
  * @since  1.0
  * @access public
  */
 function create_functionality_plugin() {
+
+	/* Initialize the class */
+	$filename = apply_filters( 'functionality_plugin_filename', 'functions.php' );
+	$GLOBALS['functionality_plugin_controller'] = new Functionality_Plugin( $filename );
+
+	/* Create the plugin */
 	$GLOBALS['functionality_plugin_controller']->create_plugin();
 }
 
