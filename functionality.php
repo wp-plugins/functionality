@@ -6,7 +6,7 @@
  * Description: Makes it easy to create and edit your own functionality plugin for pasting snippets instead of in the theme's functions.php
  * Author: Shea Bunge
  * Author URI: http://bungeshea.com
- * Version: 1.0
+ * Version: 1.0.1
  * License: MIT
  * License URI: http://opensource.org/licenses/MIT
  */
@@ -24,7 +24,7 @@ if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT || defined( 'DISALLOW
  * created by this plugin in your plugins folder. When I refer to
  * 'this plugin', I'm talking about, you guessed it, this plugin
  *
- * @version   1.0
+ * @version   1.0.1
  * @author    Shea Bunge <info@bungeshea.com>
  * @copyright Copyright (c) 2013, Shea Bunge
  * @license   http://opensource.org/licenses/MIT
@@ -226,7 +226,7 @@ class Functionality_Plugin {
  */
 function functionality_plugin_init() {
 	$filename = apply_filters( 'functionality_plugin_filename', 'functions.php' );
-	$GLOBALS['funtionality_plugin_controller'] = new Functionality_Plugin( $filename );
+	$GLOBALS['functionality_plugin_controller'] = new Functionality_Plugin( $filename );
 }
 
 add_action( 'plugins_loaded', 'functionality_plugin_init' );
@@ -241,7 +241,7 @@ add_action( 'plugins_loaded', 'functionality_plugin_init' );
  * @access public
  */
 function functionality_plugin_admin_menu() {
-	$plugin_file = $GLOBALS['funtionality_plugin_controller']->get_plugin_filename();
+	$plugin_file = $GLOBALS['functionality_plugin_controller']->get_plugin_filename();
 
 	add_plugins_page(
 		__( 'Edit Functions', 'functionality' ),
